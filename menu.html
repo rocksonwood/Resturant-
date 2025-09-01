@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu | Saveur Restaurant</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    :root {
+      --primary: #1a1a1a;
+      --secondary: #f8f8f8;
+      --accent: #d4af37;
+      --text: #333;
+      --text-light: #f8f8f8;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    
+    body {
+      color: var(--text);
+      background-color: #fff;
+      overflow-x: hidden;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* Header & Navigation */
+    header {
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      background-color: rgba(26, 26, 26, 0.95);
+      padding: 20px 0;
+      transition: var(--transition);
+    }
+    
+    .header-scrolled {
+      padding: 10px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: 1px;
+    }
+    
+    .logo span {
+      color: var(--accent);
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 30px;
+    }
+    
+    .nav-links a {
+      color: var(--secondary);
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 5px;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--secondary);
+      border-radius: 3px;
+      transition: var(--transition);
+    }
+    
+    /* Page Banner */
+    .page-banner {
+      position: relative;
+      height: 60vh;
+      min-height: 400px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      background-color: var(--primary);
+      margin-bottom: 80px;
+    }
+    
+    .banner-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+    
+    .banner-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    
+    .banner-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .banner-subtitle {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Menu Section */
+    .menu-section {
+      padding: 80px 0;
+    }
+    
+    .section-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: var(--accent);
+    }
+    
+    .section-subtitle {
+      font-size: 18px;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Menu Navigation */
+    .menu-nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+    
+    .menu-nav-item {
+      padding: 10px 25px;
+      margin: 5px;
+      border: 2px solid var(--accent);
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      background-color: transparent;
+    }
+    
+    .menu-nav-item:hover,
+    .menu-nav-item.active {
+      background-color: var(--accent);
+      color: var(--primary);
+    }
+    
+    /* Menu Grid with Images */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 60px;
+    }
+
+    /* Menu Item with Image Option */
+    .menu-item {
+      display: flex;
+      position: relative;
+      min-height: 120px;
+    }
+    
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -20px;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .menu-item-info {
+      flex: 1;
+      padding-right: 20px;
+    }
+    
+    .menu-item-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+    
+    .menu-item-desc {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    .menu-item-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    
+    .menu-tag {
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    
+    .tag-vegetarian {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    .tag-spicy {
+      background-color: #F44336;
+      color: white;
+    }
+    
+    .tag-signature {
+      background-color: var(--accent);
+      color: var(--primary);
+    }
+    
+    .tag-gluten-free {
+      background-color: #2196F3;
+      color: white;
+    }
+    
+    .menu-item-price {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 18px;
+      white-space: nowrap;
+      margin-left: 15px;
+    }
+
+    /* New styles for image-based menu items */
+    .menu-item-with-image {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .menu-item-image-container {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .menu-item-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .menu-item-image:hover {
+      transform: scale(1.05);
+    }
+
+    .menu-item-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: var(--accent);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: bold;
+      padding: 3px 6px;
+      border-radius: 3px;
+      z-index: 1;
+    }
+
+    /* Image Gallery for Menu Categories */
+    .menu-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 280px;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .gallery-content {
+      padding: 15px;
+      background-color: white;
+    }
+
+    .gallery-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--primary);
+    }
+
+    .gallery-desc {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .gallery-price {
+      font-weight: 700;
+      color: var(--accent);
+    }
+    
+    /* Featured Menu Item */
+    .featured-menu-item {
+      margin-top: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      background-color: var(--secondary);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .featured-image {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    .featured-content {
+      padding: 40px;
+    }
+    
+    .featured-subtitle {
+      font-size: 16px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .featured-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .featured-description {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .featured-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    
+    .featured-highlight {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .featured-highlight i {
+      margin-right: 8px;
+      color: var(--accent);
+    }
+    
+    .featured-price {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    /* Seasonal Highlights Section */
+    .seasonal-highlights {
+      margin: 80px 0;
+    }
+
+    .season-carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 25px;
+      padding: 20px 0;
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .season-carousel::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    .season-item {
+      scroll-snap-align: start;
+      min-width: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .season-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .season-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .season-content {
+      padding: 20px;
+      background-color: white;
+    }
+
+    .season-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .season-desc {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .season-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .season-price {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .season-tag {
+      background-color: var(--accent);
+      color: var(--primary);
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    
+    /* Menu Notes */
+    .menu-notes {
+      margin-top: 80px;
+      background-color: var(--secondary);
+      padding: 30px;
+      border-radius: 10px;
+      line-height: 1.6;
+    }
+    
+    .menu-notes-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+    
+    .menu-notes ul {
+      list-style-position: inside;
+      margin-bottom: 15px;
+    }
+    
+    .menu-notes li {
+      margin-bottom: 8px;
+    }
+    
+    /* Call to Action */
+    .cta-section {
+      padding: 80px 0;
+      background-color: var(--primary);
+      color: var(--text-light);
+      text-align: center;
+    }
+    
+    .cta-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .cta-text {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    /* Button styles */
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-align: center;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: var(--primary);
+      border: 2px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      background-color: transparent;
+      color: var(--accent);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--primary);
+      color: var(--text-light);
+      padding: 80px 0 30px;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--accent);
+    }
+    
+    .footer-column p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+      padding-left: 5px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+    }
+    
+    .social-link:hover {
+      background-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Media Queries */
+    @media (max-width: 992px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .banner-title {
+        font-size: 36px;
+      }
+      
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .featured-menu-item {
+        grid-template-columns: 1fr;
+      }
+      
+      .featured-image {
+        height: 300px;
+      }
+
+      .menu-item-with-image {
+        grid-template-columns: 80px 1fr auto;
+        gap: 15px;
+      }
+
+      .menu-item-image-container {
+        width: 80px;
+        height: 80px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .banner-title {
+        font-size: 30px;
+      }
+      
+      .featured-content {
+        padding: 30px 20px;
+      }
+
+      .menu-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+    }
+
+    @media (max-width: 576px) {
+      .menu-item-with-image {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .menu-item-image-container {
+        width: 100%;
+        height: 180px;
+      }
+
+      .menu-item-price {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header id="header">
+    <div class="nav-container">
+      <a href="index.html" class="logo">Saveur<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="reservations.html">Reservations</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Banner -->
+  <section class="page-banner">
+    <video class="banner-video" autoplay muted loop>
+      <source src="banner.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="banner-content">
+      <h1 class="banner-title">Our Culinary Offerings</h1>
+
+    </div>
+  </section>
+
+  <!-- Menu Navigation Section -->
+  <section class="menu-section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Our Menu</h2>
+        <p class="section-subtitle">Explore our carefully crafted selections that change with the seasons</p>
+      </div>
+      
+      <div class="menu-nav">
+        <button class="menu-nav-item active" onclick="filterMenu('all')">All</button>
+        <button class="menu-nav-item" onclick="filterMenu('starters')">Starters</button>
+        <button class="menu-nav-item" onclick="filterMenu('mains')">Main Courses</button>
+        <button class="menu-nav-item" onclick="filterMenu('desserts')">Desserts</button>
+        <button class="menu-nav-item" onclick="filterMenu('drinks')">Beverages</button>
+      </div>
+
+      <!-- Seasonal Highlights with Horizontal Scrolling -->
+      <div class="seasonal-highlights">
+        <div class="section-header">
+          <h2 class="section-title">Seasonal Highlights</h2>
+          <p class="section-subtitle">This season's most celebrated dishes, featuring the freshest ingredients</p>
+        </div>
+        
+        <div class="season-carousel">
+          <div class="season-item">
+            <img src="beef.avif" alt="Beef Wellington" class="season-image">
+            <div class="season-content">
+              <h3 class="season-title">Beef Wellington</h3>
+              <p class="season-desc">Prime beef tenderloin wrapped in mushroom duxelles and puff pastry</p>
+              <div class="season-meta">
+                <span class="season-price">$42</span>
+                <span class="season-tag">Signature</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="season-item">
+            <img src="seed.jpg" alt="Seared Scallops" class="season-image">
+            <div class="season-content">
+              <h3 class="season-title">Seared Scallops</h3>
+              <p class="season-desc">Pan-seared sea scallops with butternut squash purée and crispy pancetta</p>
+              <div class="season-meta">
+                <span class="season-price">$24</span>
+                <span class="season-tag">Chef's Choice</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="season-item">
+            <img src="dark.jpg" alt="Dark Chocolate Soufflé" class="season-image">
+            <div class="season-content">
+              <h3 class="season-title">Dark Chocolate Soufflé</h3>
+              <p class="season-desc">Warm chocolate soufflé with Grand Marnier crème anglaise</p>
+              <div class="season-meta">
+                <span class="season-price">$16</span>
+                <span class="season-tag">Guest Favorite</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="season-item">
+            <img src="tur.webp" alt="Truffle Risotto" class="season-image">
+            <div class="season-content">
+              <h3 class="season-title">Truffle Risotto</h3>
+              <p class="season-desc">Creamy Arborio rice with wild mushrooms and white truffle oil</p>
+              <div class="season-meta">
+                <span class="season-price">$32</span>
+                <span class="season-tag">Vegetarian</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Starters -->
+      <div id="starters" class="menu-category">
+        <h3 class="section-title">Starters</h3>
+        <div class="menu-grid">
+          <div class="menu-item menu-item-with-image">
+            <div class="menu-item-image-container">
+              <img src="seed.jpg" alt="Seared Scallops" class="menu-item-image">
+              <span class="menu-item-badge">Signature</span>
+            </div>
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Seared Scallops</h4>
+              <p class="menu-item-desc">Pan-seared sea scallops with butternut squash purée, crispy pancetta, and sage brown butter</p>
+              <div class="menu-item-tags">
+                <span class="menu-tag tag-signature">Signature</span>
+                <span class="menu-tag tag-gluten-free">GF</span>
+              </div>
+            </div>
+            <div class="menu-item-price">$24</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Wild Mushroom Tartine</h4>
+              <p class="menu-item-desc">Foraged mushrooms, herb ricotta, truffled honey, and micro greens on toasted sourdough</p>
+              <div class="menu-item-tags">
+                <span class="menu-tag tag-vegetarian">V</span>
+              </div>
+            </div>
+            <div class="menu-item-price">$18</div>
+          </div>
+          
+          <div class="menu-item menu-item-with-image">
+            <div class="menu-item-image-container">
+              <img src="salad.jpg" alt="Heirloom Tomato Salad" class="menu-item-image">
+            </div>
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Heirloom Tomato Salad</h4>
+              <p class="menu-item-desc">Local heirloom tomatoes, burrata cheese, basil oil, aged balsamic, and pine nut crumble</p>
+              <div class="menu-item-tags">
+                <span class="menu-tag tag-vegetarian">V</span>
+                <span class="menu-tag tag-gluten-free">GF</span>
+              </div>
+            </div>
+            <div class="menu-item-price">$16</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Foie Gras Terrine</h4>
+              <p class="menu-item-desc">House-made terrine with port wine reduction, brioche toast points, and seasonal fruit compote</p>
+            </div>
+            <div class="menu-item-price">$26</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Courses -->
+      <div id="mains" class="menu-category">
+        <h3 class="section-title">Main Courses</h3>
+        <div class="menu-grid">
+          <div class="menu-item menu-item-with-image">
+            <div class="menu-item-image-container">
+              <img src="beef.avif" alt="Beef Wellington" class="menu-item-image">
+              <span class="menu-item-badge">Signature</span>
+            </div>
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Beef Wellington</h4>
+              <p class="menu-item-desc">Prime beef tenderloin wrapped in mushroom duxelles and puff pastry, served with red wine reduction</p>
+              <div class="menu-item-tags">
+                <span class="menu-tag tag-signature">Signature</span>
+              </div>
+            </div>
+            <div class="menu-item-price">$42</div>
+          </div>
+          
+          <div class="menu-item menu-item-with-image">
+            <div class="menu-item-image-container">
+              <img src="tur.webp" alt="Truffle Risotto" class="menu-item-image">
+            </div>
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Truffle Risotto</h4>
+              <p class="menu-item-desc">Creamy Arborio rice with wild mushrooms, white truffle oil, and aged Parmesan</p>
+              <div class="menu-item-tags">
+                <span class="menu-tag tag-vegetarian">V</span>
+                <span class="menu-tag tag-gluten-free">GF</span>
+              </div>
+            </div>
+            <div class="menu-item-price">$32</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Seafood Bouillabaisse</h4>
+              <p class="menu-item-desc">Classic Provençal seafood stew with saffron broth, served with rouille and toasted baguette</p>
+              <div class="menu-item-tags">
+                <span class="menu-tag tag-gluten-free">GF</span>
+              </div>
+            </div>
+            <div class="menu-item-price">$38</div>
+          </div>
+          
+          <div class="menu-item menu-item-with-image">
+            <div class="menu-item-image-container">
+              <img src="duck.jpg
+            " alt="Duck Confit" class="menu-item-image">
+            </div>
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Duck Confit</h4>
+              <p class="menu-item-desc">Slow-cooked duck leg with crispy skin, served with lentils, caramelized onions, and red wine jus</p>
+              <div class="menu-item-tags">
+                <span class="menu-tag tag-signature">Signature</span>
+              </div>
+            </div>
+            <div class="menu-item-price">$36</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Desserts -->
+      <div id="desserts" class="menu-category">
+        <h3 class="section-title">Desserts</h3>
+        <div class="menu-grid">
+          <div class="menu-item menu-item-with-image">
+            <div class="menu-item-image-container">
+              <img src="dark.jpg" alt="Dark Chocolate Soufflé" class="menu-item-image">
+            </div>
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Dark Chocolate Soufflé</h4>
+              <p class="menu-item-desc">Warm chocolate soufflé with Grand Marnier crème anglaise</p>
+              <div class="menu-item-tags">
+                <span class="menu-tag tag-signature">Signature</span>
+              </div>
+            </div>
+            <div class="menu-item-price">$16</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4 class="menu-item-title">Crème Brûlée</h4>
+              <p class="menu-item-desc">Classic vanilla custard with caramelized sugar crust</p>
+            </div>
+            <div class="menu-item-price">$12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>About Us</h3>
+        <p>Saveur is dedicated to providing an exceptional dining experience with a focus on fresh, seasonal ingredients and innovative culinary techniques.</p>
+      </div>
+      <div class="footer-column">
+        <h3>Contact</h3>
+        <ul class="footer-links">
+          <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+          <li><a href="mailto:info@saveur.com">info@saveur.com</a></li>
+          <li><a href="#">123 Culinary Lane, Food City</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Follow Us</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+          <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Saveur Restaurant. All Rights Reserved.</p>
+      <p>Designed by Frank K. Dogbe</p>
+    </div>
+  </footer>
+</body>
+</html>

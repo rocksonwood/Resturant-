@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saveur | Modern Fine Dining Experience</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    :root {
+      --primary: #1a1a1a;
+      --secondary: #f8f8f8;
+      --accent: #d4af37;
+      --text: #333;
+      --text-light: #f8f8f8;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    
+    body {
+      color: var(--text);
+      background-color: #fff;
+      overflow-x: hidden;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* Header & Navigation */
+    header {
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 20px 0;
+    }
+    
+    .header-scrolled {
+      background-color: rgba(26, 26, 26, 0.95);
+      padding: 10px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: 1px;
+    }
+    
+    .logo span {
+      color: var(--accent);
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 30px;
+    }
+    
+    .nav-links a {
+      color: var(--secondary);
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 5px;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--secondary);
+      border-radius: 3px;
+      transition: var(--transition);
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+    }
+    
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+    
+    .hero-content {
+      text-align: center;
+      max-width: 800px;
+      padding: 0 20px;
+      z-index: 1;
+    }
+    
+    .hero-title {
+      font-size: 64px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.5s;
+    }
+    
+    .hero-subtitle {
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.8s;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 1.1s;
+    }
+    
+    .btn {
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .btn-primary {
+      background-color: var(--accent);
+      color: var(--primary);
+    }
+    
+    .btn-primary:hover {
+      background-color: #c09c25;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--secondary);
+      border: 2px solid var(--secondary);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--secondary);
+      color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+    
+    .scroll-indicator i {
+      font-size: 24px;
+      color: var(--secondary);
+    }
+    
+    /* Featured Section */
+    .featured {
+      padding: 100px 0;
+      background-color: var(--secondary);
+    }
+    
+    .section-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: var(--accent);
+    }
+    
+    .section-subtitle {
+      font-size: 18px;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .featured-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+    
+    .featured-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .featured-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    
+    .featured-content {
+      padding: 20px;
+      background-color: #fff;
+    }
+    
+    .featured-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .featured-desc {
+      color: #666;
+      margin-bottom: 15px;
+    }
+    
+    .featured-price {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 20px;
+    }
+    
+    /* Testimonials Section */
+    .testimonials {
+      padding: 100px 0;
+      background-color: var(--primary);
+      color: var(--text-light);
+    }
+    
+    .testimonial-carousel {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .testimonial-item {
+      text-align: center;
+      padding: 0 50px;
+    }
+    
+    .testimonial-text {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      font-size: 18px;
+    }
+    
+    .testimonial-role {
+      color: var(--accent);
+      font-size: 16px;
+    }
+    
+    /* About Preview Section */
+    .about-preview {
+      padding: 100px 0;
+      background-color: #fff;
+    }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    
+    .about-image {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .about-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    .about-content {
+      padding: 20px;
+    }
+    
+    .about-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .about-subtitle {
+      font-size: 18px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    
+    .about-text {
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    /* Instagram Feed Section */
+    .instagram-feed {
+      padding: 100px 0;
+      background-color: var(--secondary);
+    }
+    
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+    
+    .instagram-item {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 100%;
+    }
+    
+    .instagram-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .instagram-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .instagram-item:hover .instagram-image {
+      transform: scale(1.1);
+    }
+    
+    .instagram-item:hover .instagram-overlay {
+      opacity: 1;
+    }
+    
+    .instagram-icon {
+      color: white;
+      font-size: 24px;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--primary);
+      color: var(--text-light);
+      padding: 80px 0 30px;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--accent);
+    }
+    
+    .footer-column p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+      padding-left: 5px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+    }
+    
+    .social-link:hover {
+      background-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      40% {
+        transform: translateX(-50%) translateY(-20px);
+      }
+      60% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+    }
+    
+    /* Media Queries */
+    @media (max-width: 992px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .hero-title {
+        font-size: 48px;
+      }
+      
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .instagram-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 36px;
+      }
+      
+      .hero-subtitle {
+        font-size: 18px;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .instagram-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header id="header">
+    <div class="nav-container">
+      <a href="index.html" class="logo">Saveur<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="reservations.html">Reservations</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop>
+      <source src="v1.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">A Culinary Journey</h1>
+      <p class="hero-subtitle">Experience the art of fine dining with locally sourced ingredients and innovative flavors</p>
+      <div class="hero-buttons">
+        <a href="reservations.html" class="btn btn-primary">Reserve a Table</a>
+        <a href="menu.html" class="btn btn-secondary">Explore Our Menu</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- Featured Dishes Section -->
+  <section class="featured">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Dishes</h2>
+        <p class="section-subtitle">Our chef's selection of seasonal specialties crafted with passion and precision</p>
+      </div>
+      <div class="featured-grid">
+        <div class="featured-item">
+          <img src="food1.webp" alt="Seared Scallops" class="featured-image">
+          <div class="featured-content">
+            <h3 class="featured-title">Seared Scallops</h3>
+            <p class="featured-desc">Pan-seared sea scallops with butternut squash purée, crispy pancetta, and sage brown butter</p>
+            <div class="featured-price">$28</div>
+          </div>
+        </div>
+        <div class="featured-item">
+          <img src="food2.webp" alt="Truffle Risotto" class="featured-image">
+          <div class="featured-content">
+            <h3 class="featured-title">Truffle Risotto</h3>
+            <p class="featured-desc">Creamy Arborio rice with wild mushrooms, white truffle oil, and aged Parmesan</p>
+            <div class="featured-price">$24</div>
+          </div>
+        </div>
+        <div class="featured-item">
+          <img src="food3.webp" alt="Beef Wellington" class="featured-image">
+          <div class="featured-content">
+            <h3 class="featured-title">Beef Wellington</h3>
+            <p class="featured-desc">Prime beef tenderloin wrapped in mushroom duxelles and puff pastry, served with red wine reduction</p>
+            <div class="featured-price">$38</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Updated Testimonials Section with Carousel -->
+<section class="testimonials">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">What Our Guests Say</h2>
+      <p class="section-subtitle">Experiences shared by our valued patrons</p>
+    </div>
+    <div class="testimonial-carousel">
+      <!-- Testimonial Slider -->
+      <div class="testimonial-slider">
+        <div class="testimonial-item active">
+          <div class="testimonial-card">
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial-text">"An unforgettable dining experience. The attention to detail in every dish and the impeccable service made our anniversary celebration truly special."</p>
+            <div class="testimonial-author-info">
+              <img src="emily.jpg" alt="Emily Johnson" class="testimonial-avatar">
+              <div>
+                <p class="testimonial-author">Emily Johnson</p>
+                <p class="testimonial-platform"><i class="fab fa-google"></i> Google Review</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-item">
+          <div class="testimonial-card">
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial-text">"Chef Laurent's tasting menu was a revelation. Each course told a story of culinary excellence, with the wagyu beef being the highlight of our evening."</p>
+            <div class="testimonial-author-info">
+              <img src="marcus.webp" alt="Marcus Chen" class="testimonial-avatar">
+              <div>
+                <p class="testimonial-author">Marcus Chen</p>
+                <p class="testimonial-platform"><i class="fab fa-yelp"></i> Yelp</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-item">
+          <div class="testimonial-card">
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <p class="testimonial-text">"The wine pairings were exceptional, perfectly complementing the seasonal menu. The sommelier's knowledge enhanced our entire dining experience."</p>
+            <div class="testimonial-author-info">
+              <img src="sofia.avif" alt="Sofia Rodriguez" class="testimonial-avatar">
+              <div>
+                <p class="testimonial-author">Sofia Rodriguez</p>
+                <p class="testimonial-platform"><i class="fab fa-instagram"></i> @foodie_adventures</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Carousel Controls -->
+      <div class="testimonial-controls">
+        <button class="testimonial-btn prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="testimonial-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <button class="testimonial-btn next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Updated Instagram Feed Section -->
+<section class="instagram-feed">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Follow Our Journey</h2>
+      <div class="social-handle">
+        <i class="fab fa-instagram"></i>
+        <p class="section-subtitle">@saveur_restaurant</p>
+      </div>
+    </div>
+    <div class="instagram-grid">
+      <div class="instagram-item">
+        <img src="chef.avif" alt="Chef plating a dish" class="instagram-image">
+        <div class="instagram-overlay">
+          <div class="instagram-engagement">
+            <span><i class="fas fa-heart"></i> 428</span>
+            <span><i class="fas fa-comment"></i> 32</span>
+          </div>
+          <p class="instagram-caption">Behind the scenes: Chef Laurent perfecting our new seasonal dessert #CulinaryArt</p>
+          <a href="#" class="instagram-link"><i class="fab fa-instagram"></i> View Post</a>
+        </div>
+      </div>
+      <div class="instagram-item">
+        <img src="tail.avif" alt="Signature cocktail" class="instagram-image">
+        <div class="instagram-overlay">
+          <div class="instagram-engagement">
+            <span><i class="fas fa-heart"></i> 516</span>
+            <span><i class="fas fa-comment"></i> 47</span>
+          </div>
+          <p class="instagram-caption">Our mixologist's latest creation: The Saveur 75 with house-infused gin #CraftCocktails</p>
+          <a href="#" class="instagram-link"><i class="fab fa-instagram"></i> View Post</a>
+        </div>
+      </div>
+      <div class="instagram-item">
+        <img src="visit.avif" alt="Farm visit" class="instagram-image">
+        <div class="instagram-overlay">
+          <div class="instagram-engagement">
+            <span><i class="fas fa-heart"></i> 382</span>
+            <span><i class="fas fa-comment"></i> 26</span>
+          </div>
+          <p class="instagram-caption">Visiting our local suppliers to select the freshest ingredients #FarmToTable</p>
+          <a href="#" class="instagram-link"><i class="fab fa-instagram"></i> View Post</a>
+        </div>
+      </div>
+      <div class="instagram-item">
+        <img src="dish.jpg" alt="Plated dish" class="instagram-image">
+        <div class="instagram-overlay">
+          <div class="instagram-engagement">
+            <span><i class="fas fa-heart"></i> 629</span>
+            <span><i class="fas fa-comment"></i> 54</span>
+          </div>
+          <p class="instagram-caption">Our new spring menu highlight: Wild-caught halibut with spring vegetables #SeasonalCuisine</p>
+          <a href="#" class="instagram-link"><i class="fab fa-instagram"></i> View Post</a>
+        </div>
+      </div>
+      <div class="instagram-item">
+        <img src="private.jpg" alt="Private dining" class="instagram-image">
+        <div class="instagram-overlay">
+          <div class="instagram-engagement">
+            <span><i class="fas fa-heart"></i> 347</span>
+            <span><i class="fas fa-comment"></i> 21</span>
+          </div>
+          <p class="instagram-caption">Setting up our private dining room for an exclusive chef's table experience #PrivateDining</p>
+          <a href="#" class="instagram-link"><i class="fab fa-instagram"></i> View Post</a>
+        </div>
+      </div>
+      <div class="instagram-item">
+        <img src="wine.jpg" alt="Wine cellar" class="instagram-image">
+        <div class="instagram-overlay">
+          <div class="instagram-engagement">
+            <span><i class="fas fa-heart"></i> 475</span>
+            <span><i class="fas fa-comment"></i> 38</span>
+          </div>
+          <p class="instagram-caption">A glimpse into our wine cellar - over 200 carefully selected varieties #WineLovers</p>
+          <a href="#" class="instagram-link"><i class="fab fa-instagram"></i> View Post</a>
+        </div>
+      </div>
+    </div>
+    <div class="instagram-follow">
+      <a href="#" class="btn btn-primary"><i class="fab fa-instagram"></i> Follow Us on Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- Additional CSS for the updated sections -->
+<style>
+  /* Updated Testimonials Section Styles */
+  .testimonial-carousel {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+  
+  .testimonial-slider {
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+  }
+  
+  .testimonial-item {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .testimonial-item.active {
+    opacity: 1;
+    z-index: 1;
+  }
+  
+  .testimonial-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .testimonial-rating {
+    margin-bottom: 15px;
+    color: var(--accent);
+  }
+  
+  .testimonial-text {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-style: italic;
+  }
+  
+  .testimonial-author-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+  }
+  
+  .testimonial-author {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .testimonial-platform {
+    color: var(--accent);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .testimonial-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 20px;
+  }
+  
+  .testimonial-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--secondary);
+    font-size: 18px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .testimonial-btn:hover {
+    background-color: var(--accent);
+    color: var(--primary);
+  }
+  
+  .testimonial-dots {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .dot.active {
+    background-color: var(--accent);
+    transform: scale(1.2);
+  }
+  
+  /* Updated Instagram Feed Styles */
+  .social-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+  }
+  
+  .social-handle i {
+    color: var(--accent);
+    font-size: 24px;
+  }
+  
+  .instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .instagram-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding-bottom: 100%;
+  }
+  
+  .instagram-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+  }
+  
+  .instagram-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 26, 26, 0.85);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    transition: var(--transition);
+    color: var(--text-light);
+  }
+  
+  .instagram-item:hover .instagram-image {
+    transform: scale(1.1);
+  }
+  
+  .instagram-item:hover .instagram-overlay {
+    opacity: 1;
+  }
+  
+  .instagram-engagement {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+  }
+  
+  .instagram-engagement span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .instagram-engagement i {
+    color: var(--accent);
+  }
+  
+  .instagram-caption {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 10px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .instagram-link {
+    align-self: flex-end;
+    background-color: var(--accent);
+    color: var(--primary);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: var(--transition);
+  }
+  
+  .instagram-link:hover {
+    background-color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+  }
+  
+  .instagram-follow {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 992px) {
+    .instagram-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .testimonial-card {
+      padding: 20px;
+    }
+    
+    .testimonial-text {
+      font-size: 16px;
+    }
+    
+    .instagram-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .testimonial-slider {
+      height: 350px;
+    }
+    
+    .instagram-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .testimonial-author-info {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+
+<!-- JavaScript for the testimonial carousel -->
+<script>
+  // Testimonial carousel functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const items = document.querySelectorAll('.testimonial-item');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.testimonial-btn.prev');
+    const nextBtn = document.querySelector('.testimonial-btn.next');
+    let currentIndex = 0;
+    
+    function showSlide(index) {
+      // Hide all slides
+      items.forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      // Remove active class from all dots
+      dots.forEach(dot => {
+        dot.classList.remove('active');
+      });
+      
+      // Show current slide and activate corresponding dot
+      items[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
+    
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % items.length;
+      showSlide(currentIndex);
+    }
+    
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      showSlide(currentIndex);
+    }
+    
+    // Add event listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    
+    // Add click events to dots
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        showSlide(currentIndex);
+      });
+    });
+    
+    // Auto rotate slides
+    let interval = setInterval(nextSlide, 5000);
+    
+    // Pause auto rotation when hovering over carousel
+    const carousel = document.querySelector('.testimonial-carousel');
+    carousel.addEventListener('mouseenter', () => {
+      clearInterval(interval);
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+      interval = setInterval(nextSlide, 5000);
+    });
+    
+    // Show first slide initially
+    showSlide(currentIndex);
+  });
+</script>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-column">
+      <h3>About Us</h3>
+      <p>Saveur is a modern fine dining restaurant offering a unique culinary experience with locally sourced ingredients and innovative flavors.</p>
+    </div>
+    <div class="footer-column">
+      <h3>Contact</h3>
+      <p>123 Gourmet Street, Foodie City, FC 12345</p>
+      <p>Email: contact@saveur.com</p>
+      <p>Phone: +1 234 567 890</p>
+    </div>
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="reservations.html">Reservations</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Follow Us</h3>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Saveur Restaurant. All Rights Reserved.</p>
+    <p>Designed by Lenux Rockson Wood</p>
+  </div>
+</footer>
+</body>
+</html>

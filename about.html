@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Saveur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #b8860b;
+            --primary-dark: #8b6508;
+            --secondary: #1a1a1a;
+            --light: #f9f7f3;
+            --text: #333333;
+            --text-light: #666666;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            padding: 1.5rem 0;
+        }
+        
+        .header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 1rem 0;
+            backdrop-filter: blur(8px);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            padding: 0 2rem;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .header.scrolled .logo {
+            color: var(--secondary);
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .header.scrolled .nav-links a {
+            color: var(--secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .header.scrolled .mobile-menu-btn {
+            color: var(--secondary);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary);
+            overflow: hidden;
+        }
+        
+        .hero-video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.4));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: left;
+            color: white;
+            max-width: 800px;
+            margin-left: 10%;
+            transform: translateY(-10%);
+        }
+        
+        .hero-content h1 {
+            font-size: 6rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            position: relative;
+        }
+        
+        .hero-content h1::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-top: 2.5rem;
+            font-weight: 300;
+            max-width: 600px;
+        }
+        
+        /* Story Section */
+        .story-section {
+            padding: 10rem 0;
+            position: relative;
+        }
+        
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        
+        .story-content h2 {
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            position: relative;
+            color: var(--secondary);
+        }
+        
+        .story-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .story-content p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            line-height: 1.8;
+        }
+        
+        .story-images {
+            position: relative;
+            height: 550px;
+        }
+        
+        .story-img-main {
+            width: 80%;
+            height: 450px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-image: url('/api/placeholder/600/500');
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .story-img-accent {
+            width: 50%;
+            height: 250px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-image: url('/api/placeholder/350/250');
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .story-img-main img,
+        .story-img-accent img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Philosophy Section */
+        .philosophy-section {
+            background-color: var(--secondary);
+            color: white;
+            padding: 10rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .philosophy-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1000/800');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+        }
+        
+        .philosophy-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .philosophy-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+        
+        .philosophy-header h2 {
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .philosophy-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .philosophy-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            margin-top: 2rem;
+        }
+        
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+        
+        .philosophy-item {
+            text-align: center;
+            padding: 3rem 2rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .philosophy-item:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .philosophy-item i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .philosophy-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        .philosophy-item p {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        /* Team Section */
+        .team-section {
+            padding: 10rem 0;
+            background-color: var(--light);
+        }
+        
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .team-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .team-header h2 {
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .team-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .team-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-top: 1.5rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+        
+        .team-member {
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .team-photo-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .team-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .team-member:hover .team-photo {
+            transform: scale(1.05);
+        }
+        
+        .team-member h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            color: var(--secondary);
+        }
+        
+        .team-member .title {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .team-member p {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .team-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,0.05);
+            color: var(--text);
+            transition: var(--transition);
+        }
+        
+        .team-social a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            text-align: center;
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1200/500');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+        }
+        
+        .cta-container {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .cta-container h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .cta-container p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: var(--text);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 3rem;
+            transition: var(--transition);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 5rem 0 2rem;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 400;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-col p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .footer-contact i {
+            color: var(--primary);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .footer-social a:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 3rem;
+        }
+        
+        .footer-bottom p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .hero-content h1 {
+                font-size: 5rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .story-grid, .philosophy-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content {
+                text-align: center;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+            
+            .hero-content h1::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .story-images {
+                height: 400px;
+                margin-top: 3rem;
+            }
+            
+            .story-content h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .story-content {
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .team-grid {
+                gap: 5rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">Saveur<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="reservations.html">Reservations</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+    
+    <section class="hero-section">
+        <img class="hero-video" src="./images/ph.webp" alt="Saveur restaurant atmosphere">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="fade-in">SAVEUR</h1>
+            <p class="fade-in delay-1">Where culinary artistry meets modern dining</p>
+        </div>
+    </section>
+    
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-content">
+                    <h2>Our Story</h2>
+                    <p>Founded in 2018, Saveur was born from a passion for creating extraordinary culinary experiences that challenge conventions while honoring tradition.</p>
+                    <p>Our journey began when acclaimed chef Sophie Laurent and restaurateur James Owens joined forces with a vision to create a space where innovative gastronomy could flourish in an atmosphere of warmth and sophistication.</p>
+                    <p>Today, Saveur stands as a testament to that vision—a culinary destination where boundaries are pushed, flavors are explored, and every meal tells a story.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+                <div class="story-images">
+                    <div class="story-img-main">
+                        <img src="./images/am.jpeg" alt="Saveur restaurant interior">
+                    </div>
+                    <div class="story-img-accent">
+                        <img src="./images/cook.jpg" alt="Chef preparing food">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="philosophy-section">
+        <div class="philosophy-bg"></div>
+        <div class="philosophy-container">
+            <div class="philosophy-header">
+                <h2>Our Philosophy</h2>
+                <p>At Saveur, we believe in the transformative power of food. Our approach is guided by three core principles that inform everything we do.</p>
+            </div>
+            
+            <div class="philosophy-grid">
+                <div class="philosophy-item">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Sustainability</h3>
+                    <p>We source our ingredients locally and seasonally, working directly with farmers who share our commitment to sustainable practices.</p>
+                </div>
+                <div class="philosophy-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Innovation</h3>
+                    <p>Our kitchen is a laboratory of creativity where traditional techniques meet cutting-edge culinary science.</p>
+                </div>
+                <div class="philosophy-item">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Experience</h3>
+                    <p>Every element of Saveur is designed to create a holistic dining experience that engages all the senses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="team-section">
+        <div class="team-container">
+            <div class="team-header">
+                <h2>Meet Our Team</h2>
+                <p>The passionate individuals who bring Saveur to life</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-photo-wrapper">
+                        <img class="team-photo" src="./images/lur.jpeg" alt="Sophie Laurent">
+                    </div>
+                    <h3>Sophie Laurent</h3>
+                    <p class="title">Executive Chef</p>
+                    <p>With multiple Michelin stars to her name, Sophie brings her visionary approach to Saveur's kitchen, crafting dishes that are both artistic and deeply flavorful.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo-wrapper">
+                        <img class="team-photo" src="./images/james.jpg" alt="James Owens">
+                    </div>
+                    <h3>James Owens</h3>
+                    <p class="title">Founder & Director</p>
+                    <p>A veteran of the hospitality industry, James creates the perfect environment for guests to experience the magic of Saveur.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo-wrapper">
+                        <img class="team-photo" src="./images/elena.jpeg" alt="Elena Rodriguez">
+                    </div>
+                    <h3>Elena Rodriguez</h3>
+                    <p class="title">Head Sommelier</p>
+                    <p>Elena's expertly curated wine program perfectly complements our menu, enhancing the dining experience with thoughtful pairings.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="cta-container">
+            <h2>Experience Saveur</h2>
+            <p>Join us for an unforgettable culinary journey. Make a reservation today or contact us for special events and private dining.</p>
+            <a href="reservations.html" class="btn btn-primary">Make a Reservation</a>
+            <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Saveur</h3>
+                <p>Where culinary artistry meets modern dining. Experience the finest ingredients and innovative techniques in an elegant atmosphere.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Navigation</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="reservations.html">Reservations</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Hours</h3>
+                <p><strong>Monday - Thursday</strong><br>5:00 PM - 10:00 PM</p>
+                <p><strong>Friday & Saturday</strong><br>5:00 PM - 11:00 PM</p>
+                <p><strong>Sunday</strong><br>5:00 PM - 9:00 PM</p>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <p>123 Gourmet Street<br>Culinary District<br>City, State ZIP</p>
+                <p>Phone: (123) 456-7890<br>Email: info@saveur.com</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
